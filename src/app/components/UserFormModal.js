@@ -7,7 +7,6 @@ const UserFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
     login: '',
     password: '',
     role: 'USER', // Defina um valor padrão para 'Role', ajuste conforme necessário
-    enabled: true, // Defina um valor padrão para 'Enabled', ajuste conforme necessário
     // ... outros campos
   });
 
@@ -20,10 +19,7 @@ const UserFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
   };
 
   const handleSubmit = () => {
-    // Realize qualquer lógica de validação ou chamada de API aqui
-    // ...
-    // Após o cadastro, chame a função onFinalizarCadastro para fechar o modal
-    onFinalizarCadastro();
+    onFinalizarCadastro(userData);
   };
 
   return (

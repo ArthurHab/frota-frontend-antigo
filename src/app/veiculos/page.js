@@ -25,9 +25,20 @@ export default function Veiculos() {
     setModalAberto(false);
   };
 
-  const handleFinalizarCadastro = () => {
-    // Lógica para atualizar a lista de veículos após o cadastro
-    getVeiculos();
+  const handleFinalizarCadastro = (data) => {
+    let token = getCookie('token');
+    axios
+      .post('http://localhost:8080/veiculo/cadastro', data, {headers: {
+        Authorization: `Bearer ${token}`,
+      }},)
+      .then((response) => {
+        console.log(response);
+        getVeiculos();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // Fechar o modal após finalizar o cadastro
     handleFecharModal();
   };

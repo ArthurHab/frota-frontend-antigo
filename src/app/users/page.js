@@ -24,10 +24,19 @@ export default function Users() {
     setModalAberto(false);
   };
 
-  const handleFinalizarCadastro = () => {
-    // Realize qualquer lógica necessária após o cadastro, como recarregar a lista de usuários
-    // ...
-    // Feche o modal
+  const handleFinalizarCadastro = (data) => {
+    let token = getCookie('token');
+    axios
+      .post('http://localhost:8080/auth/register', data, {headers: {
+        Authorization: `Bearer ${token}`,
+      }},)
+      .then((response) => {
+        console.log(response);
+        getUsers();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     setModalAberto(false);
   };
 

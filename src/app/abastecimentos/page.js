@@ -23,6 +23,22 @@ export default function Abastecimentos() {
     setModalAberto(false);
   };
 
+  const handleFinalizarCadastro = (data) => {
+    let token = getCookie('token');
+    axios
+      .post('http://localhost:8080/abastecimento/cadastro', data, {headers: {
+        Authorization: `Bearer ${token}`,
+      }},)
+      .then((response) => {
+        getAbastecimentos();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      setModalAberto(false);
+  }
+
   useEffect(() => {
     getAbastecimentos();
   }, []);
@@ -54,7 +70,7 @@ export default function Abastecimentos() {
       <div className="bg-gray-100 min-h-screen p-8">
         <h2 className="text-2xl font-semibold mb-4">Lista de Abastecimentos</h2>
         <AbastecimentoTable abastecimentos={data} onAdicionarAbastecimento={handleAbrirModal}/>
-        <AbastecimentoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFecharModal} />
+        <AbastecimentoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />
       </div>
     </>
   );

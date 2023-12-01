@@ -3,30 +3,28 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
-const VeiculoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
+const VeiculoModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
   const [veiculoData, setVeiculoData] = useState({
     placa: '',
     marca: '',
     modelo: '',
-    ano_fabricado: '',
-    consumo: '',
-    valor: '',
-    km: '',
+    ano_fabricado: 0,
+    consumo: 0,
+    valor: 0,
+    km: 0,
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+
     setVeiculoData((prevVeiculoData) => ({
       ...prevVeiculoData,
-      [name]: value,
+      [name]: type === 'number' ? parseFloat(value) : value,
     }));
   };
 
   const handleSubmit = () => {
-    // Realize qualquer lógica de validação ou chamada de API aqui
-    // ...
-    // Após o cadastro, chame a função onFinalizarCadastro para fechar o modal
-    onFinalizarCadastro();
+    onFinalizarCadastro(veiculoData);
   };
 
   return (
@@ -75,7 +73,7 @@ const VeiculoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Ano Fabricado</label>
           <input
-            type="text"
+            type="number"
             name="ano_fabricado"
             value={veiculoData.ano_fabricado}
             onChange={handleChange}
@@ -86,7 +84,7 @@ const VeiculoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Consumo</label>
           <input
-            type="text"
+            type="number"
             name="consumo"
             value={veiculoData.consumo}
             onChange={handleChange}
@@ -97,7 +95,7 @@ const VeiculoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Valor</label>
           <input
-            type="text"
+            type="number"
             name="valor"
             value={veiculoData.valor}
             onChange={handleChange}
@@ -108,7 +106,7 @@ const VeiculoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Quilometragem</label>
           <input
-            type="text"
+            type="number"
             name="km"
             value={veiculoData.km}
             onChange={handleChange}
@@ -127,4 +125,4 @@ const VeiculoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
   );
 };
 
-export default VeiculoFormModal;
+export default VeiculoModal;

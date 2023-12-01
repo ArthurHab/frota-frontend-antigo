@@ -2,33 +2,38 @@
 import React, { useState, useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import axios from 'axios';
+import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
 
-const AbastecimentoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
+const AbastecimentoModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
   const [abastecimentoData, setAbastecimentoData] = useState({
-    veiculoId: '',
-    litros: '',
-    km: '',
+    placa: '',
+    litros: 0,
+    km: 0,
   });
 
-  const [nomesVeiculos, setNomesVeiculos] = useState([]);
+  const [veiculos, setVeiculos] = useState([]);
 
   useEffect(() => {
     // Carrega a lista de nomes de veículos da API ao montar o componente
-    getNomesVeiculos();
+    getVeiculos();
   }, []);
 
-  const getNomesVeiculos = () => {
+  const getVeiculos = () => {
     // Substitua a URL pela sua API de nomes de veículos
-    axios.get('SUA_API_AQUI')
+    let token = getCookie('token');
+    axios
+      .get('http://localhost:8080/veiculo',{headers: {
+        Authorization: `Bearer ${token}`,
+      }},)
       .then((response) => {
-        setNomesVeiculos(response.data);
+        setVeiculos(response.data);
       })
       .catch((error) => {
-        console.error('Erro ao obter nomes de veículos', error);
+        console.log(error);
       });
   };
 
-  const handleChange = (e) => {
+  const handleChangeForSelect = (e) => {
     const { name, value } = e.target;
     setAbastecimentoData((prevAbastecimentoData) => ({
       ...prevAbastecimentoData,
@@ -36,9 +41,19 @@ const AbastecimentoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
     }));
   };
 
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+
+    setAbastecimentoData((prevAbastecimentoData) => ({
+      ...prevAbastecimentoData,
+      [name]: type === 'number' ? parseFloat(value) : value,
+    }));
+  };
+  
+
   const handleSubmit = () => {
     
-    onFinalizarCadastro();
+    onFinalizarCadastro(abastecimentoData);
   };
   
 
@@ -55,17 +70,17 @@ const AbastecimentoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Selecione um veículo</label>
           <select
-            name="veiculoId"
-            value={abastecimentoData.veiculoId}
-            onChange={handleChange}
+            name="placa"
+            value={abastecimentoData.placa}
+            onChange={handleChangeForSelect}
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
           >
             <option value="" disabled>
               Selecione um veículo
             </option>
-            {nomesVeiculos.map((veiculo) => (
-              <option key={veiculo.id} value={veiculo.id}>
-                {veiculo.nome}
+            {veiculos.map((veiculo) => (
+              <option key={veiculo.placa} value={veiculo.placa}>
+                {veiculo.modelo} | {veiculo.placa}
               </option>
             ))}
           </select>
@@ -74,7 +89,7 @@ const AbastecimentoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Litros</label>
           <input
-            type="text"
+            type="number"
             name="litros"
             value={abastecimentoData.litros}
             onChange={handleChange}
@@ -85,7 +100,7 @@ const AbastecimentoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Quilometragem</label>
           <input
-            type="text"
+            type="number"
             name="km"
             value={abastecimentoData.km}
             onChange={handleChange}
@@ -104,4 +119,6 @@ const AbastecimentoFormModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
   );
 };
 
-export default AbastecimentoFormModal;
+export default AbastecimentoModal;
+
+
