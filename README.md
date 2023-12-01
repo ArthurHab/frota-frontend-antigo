@@ -15,7 +15,7 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- [Spring boot](https://nextjs.org)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg">
+- [Next JS](https://nextjs.org)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg">
 
 - [TypeScript](https://www.javascript.com/)    <img align="center" alt="Arthur-Ts" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
 
@@ -35,7 +35,7 @@ The Shop é um projeto no qual permite ao usuário ter um local seguro e bem est
 - Instale as dependências com `npm`
 - Inicie o servidor com `npm run start`
 
-Agora você pode acessar [`localhost:4200`](http://localhost:4200) do seu navegador.
+Agora você pode acessar [`localhost:4200`](http://localhost:3000) do seu navegador.
 
 ## 🎬 Executando a aplicação
 
