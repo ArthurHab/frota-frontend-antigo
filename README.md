@@ -1,5 +1,5 @@
 ﻿<h1 align="center">
-  The Shop
+  Frota Frontend
 </h1>
 
 <p align="center">
@@ -15,7 +15,7 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- [Angular](https://angular.io/)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg">
+- [Spring boot](https://nextjs.org)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="[https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg](https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg)">
 
 - [TypeScript](https://www.javascript.com/)    <img align="center" alt="Arthur-Ts" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
 
