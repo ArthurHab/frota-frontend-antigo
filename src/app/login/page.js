@@ -1,39 +1,47 @@
 'use client'
+// pages/Login.js
+import React, { useState } from 'react';
+import axios from 'axios';
+import { setCookie } from 'cookies-next';
+import { useRouter } from 'next/navigation';
+import Notification from '../components/Notification';
 
-import axios from "axios";
-import { useState } from "react"
-import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
-import { useRouter } from 'next/navigation'
+export default function Login() {
+  
+  const router = useRouter();
 
-export default function Login(){
+  const [userName, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
-    const router = useRouter()
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
 
-    const [userName, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
-    const handleUsernameChange = (e) => {
-        setUsername(e.target.value);
-      };
-    
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+  const tryLogin = () => {
+    axios
+      .post('http://localhost:8080/auth/login', {
+        login: userName,
+        password: password,
+      })
+      .then((response) => {
+        setCookie('token', response.data.token);
+        router.push('/users');
+      })
+      .catch((error) => {
+        setErrors((prevErrors) => [...prevErrors, 'Usuário não cadastrado!']);
+      });
+  };
 
-    function tryLogin(){
-        axios.post('http://localhost:8080/auth/login', {
-            login: userName,
-            password: password
-        })
-        .then((response) => {
-            setCookie('token', response.data.token);
-            router.push("/");
-        })
-        .catch((error) => console.log(error))
-    }
-    
-    return(
-      
+  const closeNotification = () => {
+    setErrors([]);
+  };
+
+  return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h1 className="text-2xl font-semibold mb-4">Login</h1>
@@ -63,7 +71,10 @@ export default function Login(){
         >
           Acessar
         </button>
+
+        {/* Mostrar a notificação de erro */}
+        {errors.length > 0 && <Notification messages={errors} onClose={closeNotification} />}
       </div>
     </div>
-    )
+  );
 }

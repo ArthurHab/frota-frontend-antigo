@@ -1,49 +1,61 @@
 'use client'
-
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from "react"
+// components/Abastecimentos.js
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
 import axios from 'axios';
 import NavigationMenu from '../components/NavigationMenu';
 import LoadingMessage from '../components/LoadingMessage';
 import AbastecimentoTable from '../components/AbastecimentoTable';
+import AbastecimentoFormModal from '../components/AbastecimentoModal';
 
-export default function Abastecimentos(){
+export default function Abastecimentos() {
+  const router = useRouter();
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [modalAberto, setModalAberto] = useState(false);
 
-    const router = useRouter();
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const handleAbrirModal = () => {
+    setModalAberto(true);
+  };
 
-    useEffect(() => {
-        getAbastecimentos();
-    }, [])
+  const handleFecharModal = () => {
+    setModalAberto(false);
+  };
 
-    function getAbastecimentos(){
-        let token = getCookie('token');
-        axios.get("http://localhost:8080/abastecimento",{
-            headers: {
-                'Authorization': `Bearer ${token}`,
-              },
-        })
-            .then((response) => {
-                setData(response.data);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                router.push("/login");
-            });
-    }
+  useEffect(() => {
+    getAbastecimentos();
+  }, []);
 
-    if(isLoading){
-        return(<LoadingMessage/>)
-    }
+  function getAbastecimentos() {
+    let token = getCookie('token');
+    axios
+      .get('http://localhost:8080/abastecimento', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        router.push('/login');
+      });
+  }
 
-    return(
-    <>  
-        <NavigationMenu/>
-        <div className="bg-gray-100 min-h-screen p-8">
+  if (isLoading) {
+    return <LoadingMessage />;
+  }
+
+  return (
+    <>
+      <NavigationMenu />
+      <div className="bg-gray-100 min-h-screen p-8">
         <h2 className="text-2xl font-semibold mb-4">Lista de Abastecimentos</h2>
-        <AbastecimentoTable abastecimentos={data}/>
-    </div>
-    </>)
+        <AbastecimentoTable abastecimentos={data} onAdicionarAbastecimento={handleAbrirModal}/>
+        <AbastecimentoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFecharModal} />
+      </div>
+    </>
+  );
 }

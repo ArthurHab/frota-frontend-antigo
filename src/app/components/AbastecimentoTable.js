@@ -2,12 +2,12 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 
-const AbastecimentoTable = ({ abastecimentos, onAdicionarVeiculo }) => {
+const AbastecimentoTable = ({ abastecimentos, onAdicionarAbastecimento }) => {
   return (
     <div className="overflow-x-auto">
         <div className="flex justify-end mb-4">
         <button
-          onClick={onAdicionarVeiculo}
+          onClick={onAdicionarAbastecimento}
           className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline"
         >
           <FaPlus className="w-4 h-4 mr-2" />
