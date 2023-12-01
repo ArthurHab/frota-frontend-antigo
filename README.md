@@ -15,7 +15,7 @@
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-- [Spring boot](https://nextjs.org)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="(https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg)">
+- [Spring boot](https://nextjs.org)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg">
 
 - [TypeScript](https://www.javascript.com/)    <img align="center" alt="Arthur-Ts" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
 
