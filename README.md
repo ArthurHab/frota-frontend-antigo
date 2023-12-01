@@ -21,7 +21,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-The Shop é um projeto no qual permite ao usuário ter um local seguro e bem estruturado para que possa realizar a compras de vários produtos, que estão organizados por categoria.
+Frota é um projeto que consome uma API feita em Spring boot. Esse projeto contém um sistema de autenticação, e é possível cadastrar e visualizar os dados de usuários do sistema, veiculos e abastecimentos.
 
 ## ✨ Layout
 
