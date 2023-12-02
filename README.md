@@ -8,7 +8,7 @@
   <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-executar">Como executar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-executando-a-aplicação">Executando a aplicação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-responsividade-mobile">Responsividade Mobile</a>
+  <a href="#-backend">Backend</a>
 </p>
 
 ## 🚀 Tecnologias
@@ -50,3 +50,7 @@ Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navega
 <p align="center">
   <img alt="layout" src="./github/assets/video3.gif">
 </p>
+
+## ⚙️ Backend 
+
+- [Frota-API](https://github.com/ArthurHab/frota-api)    <img align="center" alt="Arthur-Angularjs" height="30" width="40" src="https://user-images.githubusercontent.com/51391473/113920973-14da8880-97ab-11eb-8223-ffa85d487831.png">
