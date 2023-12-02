@@ -40,11 +40,13 @@ Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navega
 ## 🎬 Executando a aplicação
 
 <p align="center">
-  <img alt="layout" src="./github/assets/video.gif">
+  <img alt="layout" src="./github/assets/video1.gif">
 </p>
-
-## 📱 Responsividade Mobile
 
 <p align="center">
   <img alt="layout" src="./github/assets/video2.gif">
+</p>
+
+<p align="center">
+  <img alt="layout" src="./github/assets/video3.gif">
 </p>
