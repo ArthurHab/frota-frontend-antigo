@@ -9,6 +9,7 @@ import NavigationMenu from '../components/NavigationMenu';
 import LoadingMessage from '../components/LoadingMessage';
 import VeiculoTable from '../components/VeiculoTable';
 import VeiculoFormModal from '../components/VeiculoModal';
+import Notification from '../components/Notification';
 
 
 export default function Veiculos() {
@@ -16,6 +17,17 @@ export default function Veiculos() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [modalAberto, setModalAberto] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  const addMessage = (text, type) => {
+    setMessages([...messages, { text, type }]);
+  };
+
+  const removeMessage = (index) => {
+    const updatedMessages = [...messages];
+    updatedMessages.splice(index, 1);
+    setMessages(updatedMessages);
+  };
 
   const handleAbrirModal = () => {
     setModalAberto(true);
@@ -32,11 +44,11 @@ export default function Veiculos() {
         Authorization: `Bearer ${token}`,
       }},)
       .then((response) => {
-        console.log(response);
+        addMessage('Veículo cadastrado com sucesso!', 'success');
         getVeiculos();
       })
       .catch((error) => {
-        console.log(error);
+        addMessage('Veículo já cadastrado no sistema!', 'error');
       });
 
     // Fechar o modal após finalizar o cadastro
@@ -73,6 +85,16 @@ export default function Veiculos() {
       <NavigationMenu />
       <div className="bg-gray-100 min-h-screen p-8">
         <h2 className="text-2xl font-semibold mb-4">Lista de Veículos</h2>
+        <div className='absolute top-10 right-4'>
+          {messages.map((message, index) => (
+            <Notification
+              key={index}
+              text={message.text}
+              type={message.type}
+              onRemove={() => removeMessage(index)}
+            />
+          ))}
+        </div>
         <VeiculoTable veiculos={data} onAdicionarVeiculo={handleAbrirModal} />
         <VeiculoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />
       </div>

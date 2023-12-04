@@ -1,29 +1,32 @@
-// components/Notification.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-const Notification = ({ messages, onClose }) => {
-  const [isVisible, setIsVisible] = useState(true);
-
+const Notification = ({ text, type, onRemove }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsVisible(false);
-      onClose();
-    }, 3000);
+      onRemove();
+    }, 2000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [onClose]);
+  }, [onRemove]);
 
-  return isVisible ? (
-    <div className="fixed top-4 right-4 space-y-2">
-      {messages.map((message, index) => (
-        <div key={index} className="bg-red-500 text-white p-4 rounded-md shadow-md">
-          {message}
-        </div>
-      ))}
+  let backgroundColor;
+  if (type === 'error') {
+    backgroundColor = 'bg-red-200';
+  } else if (type === 'alert') {
+    backgroundColor = 'bg-yellow-200';
+  } else {
+    backgroundColor = 'bg-green-200';
+  }
+
+  return (
+    <div
+      className={`top-6 right-6 p-3 rounded-md mt-4 ${backgroundColor} shadow-md`}
+    >
+      {text}
     </div>
-  ) : null;
+  );
 };
 
 export default Notification;
