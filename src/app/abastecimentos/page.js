@@ -35,6 +35,21 @@ export default function Abastecimentos() {
     setModalAberto(false);
   };
 
+  const onDeleteAbastecimento = (abastecimentosId) => {
+    let token = getCookie('token');
+    axios
+      .delete(`http://localhost:8080/abastecimento/deletar/${abastecimentosId}`, {headers: {
+        Authorization: `Bearer ${token}`,
+      }},)
+      .then((response) => {
+        getAbastecimentos();
+        addMessage('Abasecimento deletado com sucesso!', 'success');
+      })
+      .catch((error) => {
+        addMessage('Abastecimento não encontrado!', 'error');
+      })
+  }
+
   const handleFinalizarCadastro = (data) => {
 
     if (data.placa.length != 7) {
@@ -110,7 +125,7 @@ export default function Abastecimentos() {
           ))}
       </div>
         <h2 className="text-2xl font-semibold mb-4">Lista de Abastecimentos</h2>
-        <AbastecimentoTable abastecimentos={data} onAdicionarAbastecimento={handleAbrirModal}/>
+        <AbastecimentoTable abastecimentos={data} onAdicionarAbastecimento={handleAbrirModal} onDeleteAbastecimento={onDeleteAbastecimento}/>
         <AbastecimentoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />
       </div>
     </>

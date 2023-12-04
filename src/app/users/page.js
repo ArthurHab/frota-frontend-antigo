@@ -36,6 +36,21 @@ export default function Users() {
     setMessages(updatedMessages);
   };
 
+  const handleDeletarUser = (userId) => {
+    let token = getCookie('token');
+    axios
+      .delete(`http://localhost:8080/user/deletar/${userId}`, {headers: {
+        Authorization: `Bearer ${token}`,
+      }},)
+      .then((response) => {
+        getUsers();
+        addMessage('Usuário deletado com sucesso!', 'success');
+      })
+      .catch((error) => {
+        addMessage('Usuário não encontrado!', 'error');
+      });
+  }
+
   const handleFinalizarCadastro = (data) => {
     if (data.login.length < 3) {
       addMessage('O nome de usuário deve ter pelo menos 3 caracteres.', 'alert');
@@ -102,7 +117,7 @@ export default function Users() {
             />
           ))}
         </div>
-        <UserTable users={data} onAdicionarVeiculo={handleAbrirModal}/>
+        <UserTable users={data} onAdicionarVeiculo={handleAbrirModal} onDeleteUser={handleDeletarUser}/>
 
         {/* Renderize o modal */}
         <UserFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />
