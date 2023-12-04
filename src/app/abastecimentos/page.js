@@ -2,7 +2,7 @@
 // components/Abastecimentos.js
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import axios from 'axios';
 import NavigationMenu from '../components/NavigationMenu';
 import LoadingMessage from '../components/LoadingMessage';
@@ -36,6 +36,23 @@ export default function Abastecimentos() {
   };
 
   const handleFinalizarCadastro = (data) => {
+
+    if (data.placa.length != 7) {
+      addMessage('A placa deve possuir 7 caracteres!', 'alert');
+      return;
+    }
+
+    if (data.litros < 1) {
+      addMessage('Os litros tem que maior que 0', 'alert');
+      console.log(data.placa)
+      return;
+    }
+
+    if (data.km < 1) {
+      addMessage('O KM tem que ser maior que 0', 'alert');
+      return;
+    }
+
     let token = getCookie('token');
     axios
       .post('http://localhost:8080/abastecimento/cadastro', data, {headers: {
@@ -82,7 +99,7 @@ export default function Abastecimentos() {
     <>
       <NavigationMenu />
       <div className="bg-gray-100 min-h-screen p-8">
-      <div className='absolute top-10 right-4'>
+      <div className='absolute top-12 right-4'>
           {messages.map((message, index) => (
             <Notification
               key={index}
@@ -91,7 +108,7 @@ export default function Abastecimentos() {
               onRemove={() => removeMessage(index)}
             />
           ))}
-        </div>
+      </div>
         <h2 className="text-2xl font-semibold mb-4">Lista de Abastecimentos</h2>
         <AbastecimentoTable abastecimentos={data} onAdicionarAbastecimento={handleAbrirModal}/>
         <AbastecimentoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />

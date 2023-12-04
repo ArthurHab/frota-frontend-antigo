@@ -8,7 +8,7 @@ import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
 import NavigationMenu from '../components/NavigationMenu';
 import LoadingMessage from '../components/LoadingMessage';
 import VeiculoTable from '../components/VeiculoTable';
-import VeiculoFormModal from '../components/VeiculoModal';
+import VeiculoModal from '../components/VeiculoModal';
 import Notification from '../components/Notification';
 
 
@@ -38,6 +38,41 @@ export default function Veiculos() {
   };
 
   const handleFinalizarCadastro = (data) => {
+    if (data.placa.length != 7) {
+      addMessage('A placa deve ter 7 caracteres!', 'alert');
+      return;
+    }
+
+    if (data.marca.length < 3) {
+      addMessage('A marca deve ter pelo menos 3 caracteres!', 'alert');
+      return;
+    }
+
+    if (data.modelo.length < 3) {
+      addMessage('O modelo deve ter pelo menos 3 caracteres', 'alert');
+      return;
+    }
+
+    if (data.ano_fabricado < 1900) {
+      addMessage('O ano não pode ser menor que 1900', 'alert');
+      return;
+    }
+
+    if (data.consumo < 1) {
+      addMessage('O consumo não pode ser 0', 'alert');
+      return;
+    }
+
+    if (data.valor < 1) {
+      addMessage('O valor não pode ser 0', 'alert');
+      return;
+    }
+
+    if (data.km < 1) {
+      addMessage('O KM não pode ser 0', 'alert');
+      return;
+    }
+
     let token = getCookie('token');
     axios
       .post('http://localhost:8080/veiculo/cadastro', data, {headers: {
@@ -96,7 +131,7 @@ export default function Veiculos() {
           ))}
         </div>
         <VeiculoTable veiculos={data} onAdicionarVeiculo={handleAbrirModal} />
-        <VeiculoFormModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />
+        <VeiculoModal isOpen={modalAberto} onClose={handleFecharModal} onFinalizarCadastro={handleFinalizarCadastro} />
       </div>
     </>
   );

@@ -6,7 +6,7 @@ import { getCookies, setCookie, deleteCookie, getCookie } from 'cookies-next';
 
 const AbastecimentoModal = ({ isOpen, onClose, onFinalizarCadastro }) => {
   const [abastecimentoData, setAbastecimentoData] = useState({
-    placa: '',
+    placa: "",
     litros: 0,
     km: 0,
   });

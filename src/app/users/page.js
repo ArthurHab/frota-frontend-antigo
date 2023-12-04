@@ -37,6 +37,16 @@ export default function Users() {
   };
 
   const handleFinalizarCadastro = (data) => {
+    if (data.login.length < 3) {
+      addMessage('O nome de usuário deve ter pelo menos 3 caracteres.', 'alert');
+      return;
+    }
+
+    if (data.password.length < 3) {
+      addMessage('A senha dev ter pelo menos 3 caracteres.', 'alert');
+      return;
+    }
+
     let token = getCookie('token');
     axios
       .post('http://localhost:8080/auth/register', data, {headers: {

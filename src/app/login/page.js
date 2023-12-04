@@ -32,6 +32,16 @@ export default function Login() {
   };
 
   const tryLogin = () => {
+    if (userName.length < 3) {
+      addMessage('O Username deve ter no mínimo 3 caracteres!', 'alert');
+      return;
+    }
+
+    if (password.length < 3) {
+      addMessage('A senha deve ter no mínimo 3 caracteres!', 'alert');
+      return;
+    }
+    
     axios
       .post('http://localhost:8080/auth/login', {
         login: userName,
@@ -53,7 +63,7 @@ export default function Login() {
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h1 className="text-2xl font-semibold mb-4">Login</h1>
         
-        <div className='absolute top-10 right-4'>
+        <div className='absolute top-8 right-4'>
           {messages.map((message, index) => (
             <Notification
               key={index}
